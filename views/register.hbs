@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+<body>
+
+    <div class="main">
+        <div class="form-box">
+         <div class="button-box">
+             <div class="btn"></div>
+             {{!-- <button type="button" class="toggle-btn">Login</button>
+             <button type="button" class="toggle-btn">Register</button> --}}
+
+            <h3 class="toggle-btn" >User Registration</h3> 
+
+
+            </div>
+
+        <form action="/register" method="POST"   class="input-group" id="register">
+            <input type="text" name="UserName" class="input-field" placeholder="User Name" required >
+            <input type="email" name="email" class="input-field" placeholder="Email" required >
+            <input type="number" name="phone" class="input-field" placeholder="Phone" required>
+            <input type="number" name="age" class="input-field" placeholder="Age" required>
+            <input type="text" name="password" class="input-field" placeholder="Enter Password" required >
+            <input type="password" name="cpassword" class="input-field" placeholder="Confirm Password" required >
+            {{!-- <button type="submit" class="submit-btn">Register</button> --}}
+            {{!-- <a href="/register" class = "submit-btn">Register</a> --}}
+            <input type="submit" class = "login-btn" name="Register">
+            <span>or</span>
+
+            <a href="/login" class = "login-btn">Login Here</a>
+            <a href="/" class="login-btn">Back to Home Page</a>
+
+
+        </form>
+        
+        </div>
+    </div>
+
+
+
+
+</body>
+</html>
