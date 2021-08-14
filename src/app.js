@@ -60,7 +60,7 @@ app.post("/register", async (req, res) => {
         age: req.body.age,
         password: req.body.password,
         // cpassword: req.body.cpassword //there is no need to show cpassword again
-      });
+      })
 
       // this line's code is in schema section bcz we want thatt before saving our data into db , our pswd should
       // hashed. SO after register and before save.
@@ -77,7 +77,7 @@ app.post("/register", async (req, res) => {
       
       
       const registered = await userRegistered.save();
-      res.render("index");
+      res.status(201).render("index");
 
     } else {
       res.status(400).send("Password do not match!!!");
@@ -89,9 +89,6 @@ app.post("/register", async (req, res) => {
 });
 
 //                               Login Validation
-
-
-
 
 app.post("/login", async (req, res) => {
   try {
@@ -118,7 +115,7 @@ app.post("/login", async (req, res) => {
         
         if(isMatch){ //now we are matching with the hashed passwords
       //if pswrd matched with our reg pass then render
-      res.render("index");
+      res.status(201).render("index");
     } else {
       res.send("Password do not match!!!"); //if not matched with our reg pass
     }
@@ -150,39 +147,22 @@ app.post("/login", async (req, res) => {
 
 //                                          JWT(json web tokens)
 
-const jwt = require('jsonwebtoken');
-// console.log(jwt);
-// 60e4013b3713a61adc902917
+// const jwt = require('jsonwebtoken');
+// // console.log(jwt);
+// // 60e4013b3713a61adc902917
 
 
-const createToken = async () => {
-  // jwt.sign(payload,"secret key")
-  const token = await jwt.sign({ _id: '60e4013b3713a61adc902917' }, "HiTHisissatyammishraherefrombastiuphowareyou",
-  { expiresIn:"2h" } ); //it will tell page's expiry date
-  // console.log(token);
+// const createToken = async () => {
+//   // jwt.sign(payload,"secret key")
+//   const token = await jwt.sign({ _id: '60e4013b3713a61adc902917' }, "HiTHisissatyammishraherefrombastiuphowareyou",
+//   { expiresIn:"2h" } ); //it will tell page's expiry date
+//   // console.log(token);
 
-  const userVerification = await jwt.verify(token, "HiTHisissatyammishraherefrombastiuphowareyou"); //user verifiaction
-  console.log(userVerification);
-}
+//   const userVerification = await jwt.verify(token, "HiTHisissatyammishraherefrombastiuphowareyou"); //user verifiaction
+//   console.log(userVerification);
+// }
 
-
-
-
-createToken();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// createToken();
 
 const PORT = process.env.PORT || 3000;
 

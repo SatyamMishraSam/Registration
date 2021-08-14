@@ -60,11 +60,11 @@ userSchema.methods.generateAuthToken = async function(){
 // encrypting the password==>
 
 userSchema.pre("save", async function(next){ //it means before saving event  do pre hashing
-    // if (this.isModified('password')) { //this line is used if somone changes the password then
+    if (this.isModified('password')) { //this line is used if somone changes the password then
         console.log(`password is ${this.password}`);
         this.password = await bcrypt.hash(this.password, 10);  //passwd encrypted
         console.log(`Hashed Password is ${this.password}`); //new pswd
-    // }
+    }
     next(); //after hashing call the next function to execute which will go in app.js
 })
 
