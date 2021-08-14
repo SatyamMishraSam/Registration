@@ -4,10 +4,13 @@ require("./db/conn");
 const UserRegister = require("./models/userReg");
 const bcrypt = require('bcrypt');
 const hbs = require("hbs");
+
 const app = express();
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false })); //to show the data` when form submits
+
 
 const static_path = path.join(__dirname, "../public/");
 // console.log(static_path);
@@ -23,6 +26,7 @@ app.get("/", (req, res) => {
   // res.send("hello");
   res.render("index");
 });
+
 
 app.get("/login", (req, res) => {
   res.render("login");
@@ -61,14 +65,25 @@ app.post("/register", async (req, res) => {
       // this line's code is in schema section bcz we want thatt before saving our data into db , our pswd should
       // hashed. SO after register and before save.
 
+      // console.log("this success part is" + userRegistered);
 
+      // const token = await userRegistered.generateAuthToken();
+      // console.log("The token is " + token);
+
+      // res.cookie('jwt', token, {
+      //   expires: new Date(Date.now() + 3000),
+      //   httpOnly:true
+      // });
+      
+      
       const registered = await userRegistered.save();
       res.render("index");
+
     } else {
       res.status(400).send("Password do not match!!!");
     }
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send("Email is already registered!!");
   }
   // res.render('register');
 });
@@ -88,7 +103,16 @@ app.post("/login", async (req, res) => {
     // res.send(userEmail);
   
       const isMatch = await bcrypt.compare(loginPassword, userEmail.password); //will return true;
-      
+      // genertaing tokens while login
+      // const token = await userEmail.generateAuthToken();
+      // console.log("The token is " + token);
+    
+      // res.cookie('jwt', token, {
+      //   expires: new Date(Date.now() + 300000),
+      //   httpOnly:true
+      // });
+    
+      // console.log(` The cookie is ${req.cookies.jwt}`) //undefined
       // if (userEmail.password === loginPassword) {
     // in this if condition it was matching with normal pswd saved in db but now its hashed
         
@@ -104,7 +128,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-//                                           All about bcrypt.js
+// bcrypt.js
 
 
 
@@ -135,7 +159,7 @@ const createToken = async () => {
   // jwt.sign(payload,"secret key")
   const token = await jwt.sign({ _id: '60e4013b3713a61adc902917' }, "HiTHisissatyammishraherefrombastiuphowareyou",
   { expiresIn:"2h" } ); //it will tell page's expiry date
-  console.log(token);
+  // console.log(token);
 
   const userVerification = await jwt.verify(token, "HiTHisissatyammishraherefrombastiuphowareyou"); //user verifiaction
   console.log(userVerification);
